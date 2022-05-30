@@ -14,9 +14,10 @@ Content-Type: application/json
 {
 "fName": "admin",
 "lName": "admin",
-"email": "admin",
+"email": "admin@yahoo.com",
 "phone": "1234567890",
 "address": "sydney",
+"dob": "1990-09-14",
 "password": "admin"
 }
 
