@@ -17,6 +17,8 @@ app.use(helmet()); //help prevent about 60-70% of attack by default
 app.use(morgan("dev"));
 
 //mongoDB connect
+import { dbConnect } from "./src/config/dbConfig.js";
+dbConnect();
 
 // routers
 
