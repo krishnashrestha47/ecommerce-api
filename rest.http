@@ -9,6 +9,16 @@ GET http://localhost:8000/api/v1/admin
 
 ###post Admin API
 POST  http://localhost:8000/api/v1/admin
+Content-Type: application/json
+
+{
+"fName": "admin",
+"lName": "admin",
+"email": "admin",
+"phone": "1234567890",
+"address": "sydney",
+"password": "admin"
+}
 
 ###update Admin API
 PATCH http://localhost:8000/api/v1/admin

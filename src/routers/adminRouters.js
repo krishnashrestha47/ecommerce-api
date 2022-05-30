@@ -9,6 +9,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  console.log(req.body);
   res.json({
     status: "success",
     message: "POST got hit to admin router",
