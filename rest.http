@@ -14,11 +14,20 @@ Content-Type: application/json
 {
 "fName": "admin",
 "lName": "admin",
-"email": "admin@yahoo.com",
+"email": "123@yahoo.com",
 "phone": "1234567890",
 "address": "sydney",
 "dob": "1990-09-14",
 "password": "admin"
+}
+
+###post Admin email verification API
+POST  http://localhost:8000/api/v1/admin/email-verification
+Content-Type: application/json
+
+{
+"email": "123@yahoo.com",
+"emailValidationCode": "280e4bb4-dfdd-4cad-b79a-641e3e32b258"
 }
 
 ###update Admin API
