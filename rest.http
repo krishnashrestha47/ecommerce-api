@@ -28,6 +28,7 @@ Content-Type: application/json
 {
 "email": "123@yahoo.com",
 "emailValidationCode": "280e4bb4-dfdd-4cad-b79a-641e3e32b258"
+
 }
 
 ###update Admin API

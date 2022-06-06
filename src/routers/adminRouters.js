@@ -72,15 +72,19 @@ router.post(
     const result = await updateAdmin(filter, update);
     console.log(result);
 
-    result?._id
-      ? res.json({
-          status: "success",
-          message: "email successfully verified, You may login now",
-        })
-      : res.json({
-          status: "error",
-          message: "Invalid or expired validation link",
-        });
+    if (result?._id) {
+      res.json({
+        status: "success",
+        message: "email successfully verified, You may login now",
+      });
+      await updateAdmin(filter, { emailValidationCode: "" });
+      return;
+    }
+
+    res.json({
+      status: "error",
+      message: "Invalid or expired validation link",
+    });
   }
 );
 
