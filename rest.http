@@ -31,5 +31,15 @@ Content-Type: application/json
 
 }
 
+### admin Login API
+POST  http://localhost:8000/api/v1/admin/login
+Content-Type: application/json
+
+{
+"email": "krish_sth2005@yahoo.com",
+"password": "abc123"
+
+}
+
 ###update Admin API
 PATCH http://localhost:8000/api/v1/admin

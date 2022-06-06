@@ -2,6 +2,7 @@ import express from "express";
 import { encryptPassword } from "../../helpers/bcryptHelper.js";
 import {
   emailVerificationValidation,
+  loginValidation,
   newAdminValidation,
 } from "../middlewares/joi-validation/adminValidation.js";
 import { insertAdmin, updateAdmin } from "../models/admin/Admin.models.js";
@@ -80,7 +81,6 @@ router.post(
       await updateAdmin(filter, { emailValidationCode: "" });
       return;
     }
-
     res.json({
       status: "error",
       message: "Invalid or expired validation link",
@@ -88,11 +88,20 @@ router.post(
   }
 );
 
-router.patch("/", (req, res) => {
+//login user with email and password
+//this feature is not complete yet
+router.post("/login", loginValidation, (req, res) => {
+  console.log(req.body);
+
+  //query get user by email
+  //if user exist, compare password,
+  //if match process for creating JWT and etc... for future
+  //for now, send login success message
   res.json({
     status: "success",
-    message: "PATCH got hit to admin router",
+    message: "login feature is not yet implemented",
   });
+  //check for authentication
 });
 
 export default router;
