@@ -30,4 +30,7 @@ kind regards,
 Laptop store team
         `, // html body
   });
+
+  console.log("Message sent: %s", info.messageId);
+  console.log(nodemailer.getTestMessageUrl(info));
 };

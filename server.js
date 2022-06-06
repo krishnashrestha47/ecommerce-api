@@ -38,7 +38,7 @@ app.use((err, req, res, next) => {
 
   res.status(err.status || 400);
   res.json({
-    satus: "error",
+    status: "error",
     message: err.message,
   });
 });
