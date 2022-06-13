@@ -101,9 +101,16 @@ router.post("/login", loginValidation, async (req, res) => {
 
     //query get user by email
     const user = await getAdmin({ email });
+
     if (user?._id) {
       console.log(user);
 
+      if (user.status === "inactive")
+        return res.json({
+          status: "error",
+          message:
+            "Your account is not active yet, please check your email and follow the instruction to activate your account",
+        });
       //if user exist, compare password,
       const isMatched = verifyPassword(password, user.password);
       console.log(isMatched);
