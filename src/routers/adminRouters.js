@@ -114,20 +114,20 @@ router.post("/login", loginValidation, async (req, res) => {
       //if user exist, compare password,
       const isMatched = verifyPassword(password, user.password);
       console.log(isMatched);
+      if (isMatched) {
+        user.password = undefined;
 
-      user.password = undefined;
-
-      //for now
-      res.json({
-        status: "success",
-        message: "User logged in successfully",
-        user,
-      });
+        //for now
+        res.json({
+          status: "success",
+          message: "User logged in successfully",
+          user,
+        });
+        return;
+      }
 
       //if match process for creating JWT and etc... for future
       //for now, send login success message
-
-      return;
     }
     res.status(401).json({
       status: "error",
