@@ -55,5 +55,17 @@ Content-Type: application/json
 
 {
     "parentCat": "",
-    "catName": "Laptops"
+    "catName": "mobile"
+}
+
+### get all active categories
+GET http://localhost:8000/api/v1/category
+
+### update status of a category
+PATCH  http://localhost:8000/api/v1/category
+Content-Type: application/json
+
+{
+    "_id": "62a7dbd7e7e3d882b393ac92",
+    "status": "active"
 }

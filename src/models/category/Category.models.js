@@ -18,5 +18,5 @@ export const deleteCatById = (_id) => {
 
 // @ _id is string, @updateObj must be an object
 export const updateCategoryById = (_id, updateObj) => {
-  return CategorySchema.findByIdAndUpdate(_id, updateObj);
+  return CategorySchema.findByIdAndUpdate(_id, updateObj, { new: true });
 };
