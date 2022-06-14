@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 const CategorySchema = new mongoose.Schema(
   {
+    status: {
+      type: String,
+      default: "inactive", //either active or inactive
+    },
     catName: {
       type: String,
       maxlength: 100,
