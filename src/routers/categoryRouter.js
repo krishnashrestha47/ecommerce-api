@@ -1,7 +1,9 @@
 import express from "express";
 import { newCategoryValidation } from "../middlewares/joi-validation/productCategoryValidation.js";
 import {
+  deleteCatById,
   getAllCategories,
+  getCategories,
   insertCategory,
   updateCategoryById,
 } from "../models/category/Category.models.js";
@@ -81,6 +83,42 @@ router.patch("/", async (req, res, next) => {
       status: "success",
       message: "Categories result",
       result,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/", async (req, res, next) => {
+  try {
+    const { _id } = req.body;
+    const filter = { parentCatId: _id };
+
+    const childCats = await getCategories(filter);
+
+    if (childCats.length) {
+      return res.json({
+        status: "error",
+        message:
+          "This parent category is not empty. Please reallocate the child categories first and then proceed",
+      });
+    }
+    return;
+
+    console.log(req.body);
+    const result = await deleteCatById(_id);
+    result?._id
+      ? res.json({
+          status: "success",
+          message: "The category has been deleted",
+        })
+      : res.json({
+          status: "error",
+          message: "Unable to delete, try again later",
+        });
+    res.json({
+      status: "success",
+      message: "todo",
     });
   } catch (error) {
     next(error);
