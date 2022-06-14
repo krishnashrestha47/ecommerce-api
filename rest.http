@@ -55,7 +55,7 @@ Content-Type: application/json
 
 {
     "parentCat": "",
-    "catName": "mobile"
+    "catName": "bench"
 }
 
 ### get all active categories

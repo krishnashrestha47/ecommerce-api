@@ -14,7 +14,7 @@ export const LONGSTR = Joi.string().max(5000);
 
 export const validationProcessor = (schema, req, res, next) => {
   const { error } = schema.validate(req.body);
-  console.log(error?.message);
+
   if (error) {
     error.status = 200;
     return next(error);

@@ -1,7 +1,7 @@
 import express from "express";
 import { newCategoryValidation } from "../middlewares/joi-validation/productCategoryValidation.js";
 import {
-  getCategories,
+  getAllCategories,
   insertCategory,
   updateCategoryById,
 } from "../models/category/Category.models.js";
@@ -42,8 +42,8 @@ router.post("/", newCategoryValidation, async (req, res, next) => {
 
 router.get("/", async (req, res, next) => {
   try {
-    const filter = { status: "active" };
-    const result = await getCategories(filter);
+    // const filter = { status: "active" };
+    const result = await getAllCategories();
 
     res.json({
       status: "success",
