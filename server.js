@@ -23,9 +23,11 @@ dbConnect();
 // routers
 import adminRouter from "./src/routers/adminRouters.js";
 import categoryRouter from "./src/routers/categoryRouter.js";
+import productRouter from "./src/routers/productRouter.js";
 
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/category", categoryRouter);
+app.use("/api/v1/products", productRouter);
 
 app.get("/", (req, res) => {
   res.json({

@@ -69,3 +69,14 @@ Content-Type: application/json
     "_id": "62a7dbd7e7e3d882b393ac92",
     "status": "active"
 }
+
+
+# ======== Product Section =========
+
+### Post product
+POST http://localhost:8000/api/v1/products
+Content-Type: application/json
+
+{
+"name": "Bike"
+}
