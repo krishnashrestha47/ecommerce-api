@@ -86,3 +86,6 @@ Content-Type: application/json
 "salesPrice": 0,
 "salesDate": null
 }
+
+### Get all products
+GET http://localhost:8000/api/v1/products

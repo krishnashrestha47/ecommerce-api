@@ -26,6 +26,10 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       maxlength: 20,
     },
+    catId: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: null,
+    },
     description: {
       type: String,
       required: true,
