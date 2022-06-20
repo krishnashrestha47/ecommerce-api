@@ -17,8 +17,9 @@ const ProductSchema = new mongoose.Schema(
       unique: true,
       index: 1,
       required: true,
+      trim: true,
     },
-    SKU: {
+    sku: {
       type: String,
       required: true,
       index: 1,
@@ -35,15 +36,10 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
-    image: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    image: [{ type: String }],
     thumbnail: {
       type: String,
-      required: true,
+      //   required: true,
       default: "",
     },
     price: {

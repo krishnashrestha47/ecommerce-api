@@ -78,5 +78,11 @@ POST http://localhost:8000/api/v1/products
 Content-Type: application/json
 
 {
-"name": "Bike"
+"name": "Merida Big 200",
+"sku": "MB-200",
+"description": "Mountain bike - hardtail",
+"qty": 100,
+"price": 1000,
+"salesPrice": 0,
+"salesDate": null
 }
