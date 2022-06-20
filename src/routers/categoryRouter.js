@@ -57,6 +57,27 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// update category
+router.put("/", newCategoryValidation, async (req, res, next) => {
+  try {
+    const { _id, ...rest } = req.body;
+
+    const result = await updateCategoryById(_id, rest);
+    console.log(result);
+    result?._id
+      ? res.json({
+          status: "success",
+          message: "The category has been udpated !",
+        })
+      : res.json({
+          status: "error",
+          message: "Unable to update the category, Please try again later",
+        });
+  } catch (error) {
+    next(error);
+  }
+});
+
 //update status of a category
 
 router.patch("/", async (req, res, next) => {
@@ -103,7 +124,6 @@ router.delete("/", async (req, res, next) => {
           "This parent category is not empty. Please reallocate the child categories first and then proceed",
       });
     }
-    return;
 
     console.log(req.body);
     const result = await deleteCatById(_id);

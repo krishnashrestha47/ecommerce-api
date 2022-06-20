@@ -8,7 +8,8 @@ import {
 export const newCategoryValidation = (req, res, next) => {
   try {
     const schema = Joi.object({
-      parentCatId: SHORTSTR.allow(""),
+      _id: SHORTSTR.allow(""),
+      parentCatId: SHORTSTR.allow(null, ""),
       catName: SHORTSTR.required(),
       status: SHORTSTR.required(),
     });
