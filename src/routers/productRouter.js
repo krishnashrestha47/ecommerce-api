@@ -2,6 +2,7 @@ import express from "express";
 import slugify from "slugify";
 import { newProductValidation } from "../middlewares/joi-validation/productCategoryValidation.js";
 import {
+  deleteMultiProducts,
   getMultipleProduct,
   insertProduct,
 } from "../models/product/Product.model.js";
@@ -50,6 +51,29 @@ router.post("/", newProductValidation, async (req, res, next) => {
       error.message = "Another product with similar name or SKU already exists";
       error.status = 200;
     }
+    next(error);
+  }
+});
+
+router.delete("/", async (req, res, next) => {
+  try {
+    const ids = req.body;
+    if (ids.length) {
+      const result = await deleteMultiProducts(ids);
+      console.log(result);
+      if (result?.deletedCount) {
+        return res.json({
+          status: "success",
+          message: "Selected products has been deleted",
+        });
+      }
+    }
+    res.json({
+      status: "error",
+      message: "Unable to delete the product, Please try again later",
+    });
+    console.log(req.body);
+  } catch (error) {
     next(error);
   }
 });
