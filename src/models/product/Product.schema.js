@@ -55,7 +55,11 @@ const ProductSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    salesDate: {
+    salesStartDate: {
+      type: Date,
+      default: null,
+    },
+    salesEndDate: {
       type: Date,
       default: null,
     },

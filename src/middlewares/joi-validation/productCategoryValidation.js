@@ -25,7 +25,6 @@ export const newCategoryValidation = (req, res, next) => {
 
 export const newProductValidation = (req, res, next) => {
   try {
-    console.log("validation");
     const schema = Joi.object({
       _id: SHORTSTR.allow(""),
       status: SHORTSTR,
@@ -35,7 +34,9 @@ export const newProductValidation = (req, res, next) => {
       qty: QTY.required(),
       price: PRICE.required(),
       salesPrice: PRICE,
-      salesDate: DATE.allow(null),
+      salesStartDate: DATE.allow(null),
+      salesEndDate: DATE.allow(null),
+      catId: SHORTSTR.required(),
     });
 
     validationProcessor(schema, req, res, next);
