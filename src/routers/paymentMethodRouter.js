@@ -22,6 +22,19 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+//update category
+router.patch("/", async (req, res, next) => {
+  try {
+    console.log(req.body);
+    res.json({
+      status: "success",
+      message: "to update",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 //return all active categories
 
 router.get("/", async (req, res, next) => {
@@ -32,7 +45,6 @@ router.get("/", async (req, res, next) => {
     res.json({
       status: "success",
       message: "payment methods result",
-      result,
     });
   } catch (error) {
     next(error);

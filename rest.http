@@ -105,3 +105,32 @@ Content-Type: application/json
 "status": "active",
 "_id": ""
 }
+
+
+# ======= payment method api ======
+
+### get all payment methods
+GET http://localhost:8000/api/v1/payment-method
+
+### post payment methods
+POST http://localhost:8000/api/v1/payment-method
+Content-Type: application/json
+
+{
+    "name": "Pay by Credit Card",
+    "status": "active",
+    "description" : "Use this payment method to pay by master card"
+}
+
+### post payment methods
+PATCH  http://localhost:8000/api/v1/payment-method
+Content-Type: application/json
+
+{
+    "name": "Pay by Credit Card",
+    "status": "active",
+    "description" : "Use this payment method to pay by master card"
+}
+
+### delete payment method
+DELETE  http://localhost:8000/api/v1/payment-method/kadf
