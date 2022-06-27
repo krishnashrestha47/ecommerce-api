@@ -1,15 +1,25 @@
 import express from "express";
+import { newPaymentMethodValidation } from "../middlewares/joi-validation/paymentMethodValidation.js";
+import { insertPaymentMethod } from "../models/payment-methods/PaymentMethod.models.js";
 
 const router = express.Router();
 
 //add new category
-router.post("/", async (req, res, next) => {
+router.post("/", newPaymentMethodValidation, async (req, res, next) => {
   try {
     console.log(req.body);
-    res.json({
-      status: "success",
-      message: "to do post",
-    });
+    const result = await insertPaymentMethod(req.body);
+    console.log(result);
+    result?._id
+      ? res.json({
+          status: "success",
+          message: "Payment method had been added successfully",
+        })
+      : res.json({
+          status: "error",
+          message:
+            "Unable to add payment method at the moment, please try again later",
+        });
   } catch (error) {
     console.log(error);
     error.status = 500;
