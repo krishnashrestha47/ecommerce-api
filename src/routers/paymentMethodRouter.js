@@ -1,8 +1,28 @@
 import express from "express";
 import { newPaymentMethodValidation } from "../middlewares/joi-validation/paymentMethodValidation.js";
-import { insertPaymentMethod } from "../models/payment-methods/PaymentMethod.models.js";
+import {
+  getAllPaymentMethods,
+  insertPaymentMethod,
+  updatePaymentMethodById,
+} from "../models/payment-methods/PaymentMethod.models.js";
 
 const router = express.Router();
+
+//return all payment methods
+
+router.get("/", async (req, res, next) => {
+  try {
+    const result = await getAllPaymentMethods();
+
+    res.json({
+      status: "success",
+      message: "payment methods result",
+      result,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 //add new category
 router.post("/", newPaymentMethodValidation, async (req, res, next) => {
@@ -25,36 +45,30 @@ router.post("/", newPaymentMethodValidation, async (req, res, next) => {
     error.status = 500;
     if (error.message.includes("E11000 duplicate key")) {
       error.status = 200;
-      error.message =
-        "This category already exists, please change the name of new category";
+      error.message = "This payment method already exists";
     }
     next(error);
   }
 });
 
-//update category
-router.patch("/", async (req, res, next) => {
+//update payment method
+router.put("/", newPaymentMethodValidation, async (req, res, next) => {
   try {
     console.log(req.body);
+    const { _id, ...rest } = req.body;
+
+    if (typeof _id === "string") {
+      const result = await updatePaymentMethodById(_id, rest);
+      if (result?._id) {
+        return res.json({
+          status: "success",
+          message: "The payment method has been updated",
+        });
+      }
+    }
     res.json({
-      status: "success",
-      message: "to update",
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-//return all active categories
-
-router.get("/", async (req, res, next) => {
-  try {
-    // const filter = { status: "active" };
-    // const result = await getAllCategories();
-
-    res.json({
-      status: "success",
-      message: "payment methods result",
+      status: "error",
+      message: "Unable to update the payment method, please try again later",
     });
   } catch (error) {
     next(error);

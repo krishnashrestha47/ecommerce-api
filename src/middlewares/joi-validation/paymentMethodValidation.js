@@ -8,6 +8,7 @@ import {
 
 export const newPaymentMethodValidation = (req, res, next) => {
   const schema = Joi.object({
+    _id: SHORTSTR.allow(null, ""),
     status: SHORTSTR.required(),
     name: SHORTSTR.required(),
     description: LONGSTR.required(),

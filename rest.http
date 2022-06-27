@@ -112,7 +112,7 @@ Content-Type: application/json
 ### get all payment methods
 GET http://localhost:8000/api/v1/payment-method
 
-### post payment methods
+### post payment method
 POST http://localhost:8000/api/v1/payment-method
 Content-Type: application/json
 
@@ -122,14 +122,15 @@ Content-Type: application/json
     "description" : "Use this payment method to pay by master card"
 }
 
-### post payment methods
-PATCH  http://localhost:8000/api/v1/payment-method
+### update payment method
+PUT  http://localhost:8000/api/v1/payment-method
 Content-Type: application/json
 
 {
+    "_id":"62ba31de56a14b1248cfe6a5",
     "name": "Pay by Credit Card",
     "status": "active",
-    "description" : "Use this payment method to pay by master card"
+    "description" : "Use this payment method to pay by credit or debit master card"
 }
 
 ### delete payment method
