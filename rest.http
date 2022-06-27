@@ -117,9 +117,9 @@ POST http://localhost:8000/api/v1/payment-method
 Content-Type: application/json
 
 {
-    "name": "Pay by Credit Card",
+    "name": "Pay by Bank Transfer",
     "status": "active",
-    "description" : "Use this payment method to pay by master card"
+    "description" : "Use this payment method to pay by bank transfer"
 }
 
 ### update payment method
@@ -134,4 +134,4 @@ Content-Type: application/json
 }
 
 ### delete payment method
-DELETE  http://localhost:8000/api/v1/payment-method/kadf
+DELETE  http://localhost:8000/api/v1/payment-method/62ba3d37b1391c1b79aa0f57
