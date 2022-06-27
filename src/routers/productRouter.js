@@ -4,14 +4,19 @@ import { newProductValidation } from "../middlewares/joi-validation/productCateg
 import {
   deleteMultiProducts,
   getMultipleProduct,
+  getProduct,
   insertProduct,
 } from "../models/product/Product.model.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
+router.get("/:_id?", async (req, res, next) => {
   try {
-    const products = await getMultipleProduct();
+    const { _id } = req.params;
+
+    const products = _id
+      ? await getProduct({ _id })
+      : await getMultipleProduct();
 
     res.json({
       status: "success",
