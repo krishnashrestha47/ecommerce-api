@@ -15,7 +15,7 @@ export const getPaymentMethods = (filter) => {
   return PaymentMethodSchema.find(filter);
 };
 
-export const deleteCatById = (_id) => {
+export const deletePaymentMethodById = (_id) => {
   return PaymentMethodSchema.findByIdAndDelete(_id);
 };
 
