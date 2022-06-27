@@ -44,3 +44,23 @@ export const newProductValidation = (req, res, next) => {
     next(error);
   }
 };
+
+export const updateProductValidation = (req, res, next) => {
+  try {
+    const schema = Joi.object({
+      _id: SHORTSTR.required(),
+      status: SHORTSTR.required(),
+      name: SHORTSTR.required(),
+      description: LONGSTR.required(),
+      qty: QTY.required(),
+      price: PRICE.required(),
+      salesPrice: PRICE,
+      salesStartDate: DATE.allow(null),
+      salesEndDate: DATE.allow(null),
+      catId: SHORTSTR.required(),
+    });
+    validationProcessor(schema, req, res, next);
+  } catch (error) {
+    next(error);
+  }
+};

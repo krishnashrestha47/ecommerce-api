@@ -84,11 +84,24 @@ Content-Type: application/json
 "qty": 100,
 "price": 1500,
 "salesPrice": 0,
-"salesDate": null
 }
 
 ### Get all products
 GET http://localhost:8000/api/v1/products
 
-### Get single products
-GET http://localhost:8000/api/v1/products/62b10ae6ab0291f2be33e82e
+### Update product
+PUT http://localhost:8000/api/v1/products
+Content-Type: application/json
+
+{
+    "catId": "",
+"name": "Merida Big Trail 600",
+"description": "Mountain bike - hardtail",
+"qty": 100,
+"price": 1500,
+"salesPrice": 0,
+"salesStartDate": null,
+"salesEndDate": null,
+"status": "active",
+"_id": ""
+}
