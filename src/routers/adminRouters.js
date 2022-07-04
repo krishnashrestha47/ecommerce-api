@@ -155,14 +155,15 @@ router.put("/", updateAdminValidation, async (req, res, next) => {
       const isMatched = verifyPassword(password, user.password);
       if (isMatched) {
         //update user
-        const { _id, ...rest } = req.body;
+        const { _id, password, ...rest } = req.body;
         const updatedAdmin = await updateAdmin({ _id }, rest);
 
-        if (updateAdmin?._id) {
+        if (updatedAdmin?._id) {
           //send email notification saying profile is updated
           return res.json({
             status: "success",
             message: "Your profile has been updated successfully",
+            user: updatedAdmin,
           });
         }
       }
