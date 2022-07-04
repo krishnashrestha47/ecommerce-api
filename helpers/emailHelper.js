@@ -62,3 +62,24 @@ Laptop store team
 
   emailProcessor(mailBody);
 };
+
+//userInfo should have email, fName
+export const otpNotification = async (userInfo) => {
+  const mailBody = {
+    from: '"Laptop store 💻 " kendra.beer50@ethereal.email', // sender address
+    to: userInfo.email, // list of receivers
+    subject: "Profile Update Notification", // Subject line
+    text: `Hi there, here is the OTP as per your request ${userInfo.token}, If it wasn't you, please contact administration immediately`, // plain text body
+    html: `<p>Hi there,</p>
+        <br/>
+        <br/>
+        here is the OTP as per your request ${userInfo.token}
+        <br/>
+        <br/>
+kind regards,
+Laptop store team
+        `, // html body
+  };
+
+  emailProcessor(mailBody);
+};

@@ -12,7 +12,7 @@ import {
   updateAdmin,
 } from "../models/admin/Admin.models.js";
 import { v4 as uuidv4 } from "uuid";
-import { sendMail } from "../../helpers/emailHelper.js";
+import { otpNotification, sendMail } from "../../helpers/emailHelper.js";
 import { insertSession } from "../models/session/SessionModel.js";
 import { createOtp } from "../../helpers/randomGeneratorHelper.js";
 const router = express.Router();
@@ -206,6 +206,10 @@ router.post("/otp-request", async (req, res, next) => {
           });
 
           //send the otp to admin email
+          return otpNotification({
+            token: result.token,
+            email,
+          });
         }
       }
     }
@@ -215,7 +219,7 @@ router.post("/otp-request", async (req, res, next) => {
       message: "Invalid request",
     });
   } catch (error) {
-    error.status(500);
+    error.status = 500;
     next(error);
   }
 });
