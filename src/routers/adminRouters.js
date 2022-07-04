@@ -179,4 +179,27 @@ router.put("/", updateAdminValidation, async (req, res, next) => {
   }
 });
 
+//password reset otp
+router.post("/otp-request", async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (email) {
+      //check if user exist
+      const user = await getAdmin({ email });
+
+      if (user?._id) {
+        //create otp and send email
+      }
+    }
+
+    res.json({
+      status: "error",
+      message: "Invalid request",
+    });
+  } catch (error) {
+    error.status(500);
+    next(error);
+  }
+});
+
 export default router;
