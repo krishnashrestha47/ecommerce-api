@@ -49,7 +49,7 @@ export const profileUpdateNotification = async (userInfo) => {
     to: userInfo.email, // list of receivers
     subject: "Profile Update Notification", // Subject line
     text: `Hi there, your profile has just been updated, If it wasn't you, please contact administration immediately`, // plain text body
-    html: `<p>Hi ${emailData.fName}</p>
+    html: `<p>Hi ${userInfo.fName}</p>
         <br/>
         <br/>
         Please follow the link below to verify your email, so that you can login to your account.
