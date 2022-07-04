@@ -4,6 +4,7 @@ import {
   emailVerificationValidation,
   loginValidation,
   newAdminValidation,
+  updateAdminValidation,
 } from "../middlewares/joi-validation/adminValidation.js";
 import {
   getAdmin,
@@ -21,6 +22,7 @@ router.get("/", (req, res) => {
   });
 });
 
+//new admin registration
 router.post("/", newAdminValidation, async (req, res, next) => {
   try {
     console.log(req.body);
@@ -134,6 +136,42 @@ router.post("/login", loginValidation, async (req, res) => {
       message: "Invalid login credentials",
     });
     //check for authentication
+  } catch (error) {
+    error.status = 500;
+    next(error);
+  }
+});
+
+//update admin registration
+router.put("/", updateAdminValidation, async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    console.log(req.body);
+
+    //query - get user by email
+    const user = await getAdmin({ email });
+
+    if (result?._id) {
+      const isMatched = verifyPassword(password, user.password);
+      if (isMatched) {
+        //update user
+        const { _id, ...rest } = req.body;
+        const updatedAdmin = await updateAdmin({ _id }, rest);
+
+        if (updateAdmin?._id) {
+          //send email notification saying profile is updated
+          return res.json({
+            status: "success",
+            message: "Your profile has been updated successfully",
+          });
+        }
+      }
+    }
+
+    res.json({
+      status: "error",
+      message: "Invalid request. Your profile didn't get updated.",
+    });
   } catch (error) {
     error.status = 500;
     next(error);

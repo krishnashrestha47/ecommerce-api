@@ -10,6 +10,7 @@ import {
   ADDRESS,
   REQUIREDSTR,
   validationProcessor,
+  SHORTSTR,
 } from "./constantValidation.js";
 
 export const newAdminValidation = (req, res, next) => {
@@ -21,7 +22,21 @@ export const newAdminValidation = (req, res, next) => {
     password: PASSWORD,
     phone: PHONE,
     address: ADDRESS,
-    requiredStr: REQUIREDSTR,
+  });
+
+  validationProcessor(schema, req, res, next);
+};
+
+export const updateAdminValidation = (req, res, next) => {
+  const schema = Joi.object({
+    _id: SHORTSTR,
+    fName: FNAME,
+    lName: LNAME,
+    dob: DOB,
+    email: EMAIL,
+    password: PASSWORD,
+    phone: PHONE,
+    address: ADDRESS,
   });
 
   validationProcessor(schema, req, res, next);
