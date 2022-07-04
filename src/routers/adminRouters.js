@@ -161,7 +161,7 @@ router.put("/", updateAdminValidation, async (req, res, next) => {
     //query - get user by email
     const user = await getAdmin({ email });
 
-    if (result?._id) {
+    if (user?._id) {
       const isMatched = verifyPassword(password, user.password);
       if (isMatched) {
         //update user
