@@ -13,6 +13,8 @@ import {
 } from "../models/admin/Admin.models.js";
 import { v4 as uuidv4 } from "uuid";
 import { sendMail } from "../../helpers/emailHelper.js";
+import { insertSession } from "../models/session/SessionModel.js";
+import { createOtp } from "../../helpers/randomGeneratorHelper.js";
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -189,6 +191,22 @@ router.post("/otp-request", async (req, res, next) => {
 
       if (user?._id) {
         //create otp and send email
+        const obj = {
+          token: createOtp(),
+          associate: email,
+          type: "updatePassword",
+        };
+        const result = await insertSession(obj);
+        if (result?._id) {
+          console.log(result);
+          res.json({
+            status: "success",
+            message:
+              "If your email exists in our system, we will send you an OTP, Please check your email",
+          });
+
+          //send the otp to admin email
+        }
       }
     }
 
