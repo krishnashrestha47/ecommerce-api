@@ -25,6 +25,11 @@ export const newCategoryValidation = (req, res, next) => {
 
 export const newProductValidation = (req, res, next) => {
   try {
+    console.log(req.body);
+    req.body.salesStartDate =
+      req.body.salesStartDate === "null" ? null : salesStartDate;
+    req.body.salesEndDate =
+      req.body.salesEndDate === "null" ? null : salesEndDate;
     const schema = Joi.object({
       _id: SHORTSTR.allow(""),
       status: SHORTSTR,
