@@ -27,9 +27,9 @@ export const newProductValidation = (req, res, next) => {
   try {
     console.log(req.body);
     req.body.salesStartDate =
-      req.body.salesStartDate === "null" ? null : salesStartDate;
+      req.body.salesStartDate === "null" ? null : req.body.salesStartDate;
     req.body.salesEndDate =
-      req.body.salesEndDate === "null" ? null : salesEndDate;
+      req.body.salesEndDate === "null" ? null : req.body.salesEndDate;
     const schema = Joi.object({
       _id: SHORTSTR.allow(""),
       status: SHORTSTR,
@@ -39,8 +39,8 @@ export const newProductValidation = (req, res, next) => {
       qty: QTY.required(),
       price: PRICE.required(),
       salesPrice: PRICE,
-      salesStartDate: DATE.allow(null),
-      salesEndDate: DATE.allow(null),
+      salesStartDate: DATE.allow(null, ""),
+      salesEndDate: DATE.allow(null, ""),
       catId: SHORTSTR.required(),
     });
 
@@ -52,6 +52,10 @@ export const newProductValidation = (req, res, next) => {
 
 export const updateProductValidation = (req, res, next) => {
   try {
+    req.body.salesStartDate =
+      req.body.salesStartDate === "null" ? null : req.body.salesStartDate;
+    req.body.salesEndDate =
+      req.body.salesEndDate === "null" ? null : req.body.salesEndDate;
     const schema = Joi.object({
       _id: SHORTSTR.required(),
       status: SHORTSTR.required(),
@@ -63,6 +67,9 @@ export const updateProductValidation = (req, res, next) => {
       salesStartDate: DATE.allow(null),
       salesEndDate: DATE.allow(null),
       catId: SHORTSTR.required(),
+      thumbnail: SHORTSTR,
+      images: LONGSTR.allow(null, ""),
+      imgToDelete: LONGSTR.allow(null, ""),
     });
     validationProcessor(schema, req, res, next);
   } catch (error) {

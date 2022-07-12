@@ -65,7 +65,11 @@ router.post(
       const { name } = req.body;
       const slug = slugify(name, { lower: true, trim: true });
       req.body.slug = slug;
-      const result = await insertProduct({ ...req.body, images });
+      const result = await insertProduct({
+        ...req.body,
+        images,
+        thumbnail: images[0],
+      });
 
       result?._id
         ? res.json({
@@ -116,25 +120,48 @@ router.delete("/", async (req, res, next) => {
   }
 });
 
-router.put("/", updateProductValidation, async (req, res, next) => {
-  try {
-    console.log(req.body);
-    const { _id, ...rest } = req.body;
+router.put(
+  "/",
+  upload.array("newImages", 5),
+  updateProductValidation,
+  async (req, res, next) => {
+    try {
+      console.log(req.body);
 
-    const result = await updateProductById(_id, rest);
+      const { _id, imgToDelete, ...rest } = req.body;
 
-    result?._id
-      ? res.json({
-          status: "success",
-          message: "Product has been updated",
-        })
-      : res.json({
-          status: "error",
-          message: "Unable to update the product, Please try again later",
-        });
-  } catch (error) {
-    next(error);
+      // 1. make new array for the images and replace in the database
+      const files = req.files;
+      const images = files.map((img) => img.path); //new imcoming images
+      const oldImgList = rest.images.split(","); //old images from database before editing product
+      // imgToDelete holds the images that is in the oldImgList that need to be removed
+
+      //remove deleted images from oldImgList
+
+      const filteredImages = oldImgList.filter(
+        (img) => !imgToDelete.includes(img)
+      );
+
+      rest.images = [...filteredImages, ...images];
+
+      // 2. delete image from the file system
+
+      const result = await updateProductById(_id, rest);
+
+      result?._id
+        ? res.json({
+            status: "success",
+            message: "Product has been updated",
+            result,
+          })
+        : res.json({
+            status: "error",
+            message: "Unable to update the product, Please try again later",
+          });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 export default router;

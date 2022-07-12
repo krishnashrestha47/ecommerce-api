@@ -17,7 +17,7 @@ export const updateProduct = (filter, updateObj) => {
 };
 
 export const updateProductById = (_id, updateObj) => {
-  return ProductSchema.findOneAndUpdate(_id, updateObj);
+  return ProductSchema.findOneAndUpdate(_id, updateObj, { new: true });
 };
 
 export const deleteProduct = (filter) => {
