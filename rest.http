@@ -46,9 +46,9 @@ PATCH http://localhost:8000/api/v1/admin/update-password
 Content-Type: application/json
 
 {
-"email": "123@yahoo.com",
-"password": "1234567890",
-"currentPassword": "Abc123"
+"email": "sth@yahoo.com",
+"password": "Abc123",
+"currentPassword": "kkKK11"
 
 }
 

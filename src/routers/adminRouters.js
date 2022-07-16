@@ -294,19 +294,24 @@ router.patch(
         //if user exist, compare password,
         const isMatched = verifyPassword(currentPassword, user.password);
         if (isMatched) {
-          const hashPassword = encryptPassword(req.body.password);
+          const hashPassword = encryptPassword(password);
 
           const updatedUser = await updateAdmin(
             {
-              password: hashPassword,
+              _id: user._id,
             },
             {
-              _id: user._id,
+              password: hashPassword,
             }
           );
 
           if (updatedUser?._id) {
-            res.json({
+            profileUpdateNotification({
+              fName: updatedUser.fName,
+              email: updatedUser.email,
+            });
+
+            return res.json({
               status: "success",
               message: "Your password has been updated successfully",
             });

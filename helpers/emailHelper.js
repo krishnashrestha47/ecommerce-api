@@ -52,7 +52,7 @@ export const profileUpdateNotification = async (userInfo) => {
     html: `<p>Hi ${userInfo.fName}</p>
         <br/>
         <br/>
-        Please follow the link below to verify your email, so that you can login to your account.
+        Hi there, your profile has just been updated, If it wasn't you, please contact administration immediately.
         <br/>
         <br/>
 kind regards,

@@ -15,3 +15,6 @@ The product API will follow the following patterns `{rootUrl}/api/v1/products`
 | #   | PATH | METHOD | PRIVATE | DESCRIPTION                                                                          |
 | --- | ---- | ------ | ------- | ------------------------------------------------------------------------------------ |
 | 1.  | `/`  | POST   | YES     | This API will allow you to send the product info and create new data in the database |
+
+//EMAIL_USER = kendra.beer50@ethereal.email
+//EMAIL_PASSWORD = EEbYGhbZRGXTKrcfdM
