@@ -5,6 +5,7 @@ import {
   loginValidation,
   newAdminValidation,
   updateAdminValidation,
+  updatePasswordValidation,
 } from "../middlewares/joi-validation/adminValidation.js";
 import {
   getAdmin,
@@ -275,5 +276,54 @@ router.patch("/password", async (req, res, next) => {
     next(error);
   }
 });
+
+//update password
+
+router.patch(
+  "/update-password",
+  updatePasswordValidation,
+  async (req, res, next) => {
+    try {
+      const { currentPassword, email, password } = req.body;
+      console.log(req.body);
+
+      //query get user by email
+      const user = await getAdmin({ email });
+
+      if (user?._id) {
+        //if user exist, compare password,
+        const isMatched = verifyPassword(currentPassword, user.password);
+        if (isMatched) {
+          const hashPassword = encryptPassword(req.body.password);
+
+          const updatedUser = await updateAdmin(
+            {
+              password: hashPassword,
+            },
+            {
+              _id: user._id,
+            }
+          );
+
+          if (updatedUser?._id) {
+            res.json({
+              status: "success",
+              message: "Your password has been updated successfully",
+            });
+          }
+        }
+      }
+
+      res.json({
+        status: "error",
+        message:
+          "Error! Unable to update the password, please try again later.",
+      });
+    } catch (error) {
+      error.status = 500;
+      next(error);
+    }
+  }
+);
 
 export default router;

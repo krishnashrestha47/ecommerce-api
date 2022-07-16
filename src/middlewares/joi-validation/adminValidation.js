@@ -57,3 +57,12 @@ export const loginValidation = (req, res, next) => {
   });
   validationProcessor(schema, req, res, next);
 };
+
+export const updatePasswordValidation = (req, res, next) => {
+  const schema = Joi.object({
+    email: EMAIL,
+    password: PASSWORD,
+    currentPassword: PASSWORD,
+  });
+  validationProcessor(schema, req, res, next);
+};
