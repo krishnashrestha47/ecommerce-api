@@ -36,8 +36,8 @@ POST  http://localhost:8000/api/v1/admin/login
 Content-Type: application/json
 
 {
-"email": "123@yahoo.com",
-"password": "1234567890"
+"email": "sth@yahoo.com",
+"password": "Hello1"
 
 }
 

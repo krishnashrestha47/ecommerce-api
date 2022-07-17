@@ -24,6 +24,7 @@ import {
   insertSession,
 } from "../models/session/SessionModel.js";
 import { createOtp } from "../helpers/randomGeneratorHelper.js";
+import { signAccessJwt } from "../helpers/jwtHelper.js";
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -130,11 +131,14 @@ router.post("/login", loginValidation, async (req, res) => {
       if (isMatched) {
         user.password = undefined;
 
+        const storeToken = await signAccessJwt({ email: user.email });
+
         //for now
         res.json({
           status: "success",
           message: "User logged in successfully",
           user,
+          accessJWT: storeToken.token,
         });
         return;
       }
