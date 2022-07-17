@@ -380,7 +380,7 @@ router.get("/accessjwt", async (req, res, next) => {
       message: "log out user",
     });
   } catch (error) {
-    console.log(error);
+    error.status = 401;
     next(error);
   }
 });
