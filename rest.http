@@ -56,6 +56,12 @@ Content-Type: application/json
 PATCH http://localhost:8000/api/v1/admin
 
 
+### request new accessJWT
+GET http://localhost:8000/api/v1/admin/accessjwt
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0aEB5YWhvby5jb20iLCJpYXQiOjE2NTgwNTIzNjcsImV4cCI6MTY2MDY0NDM2N30.I27f_3Bz96EMSa5XEoHBxDMLJ4drYj5933wcLrOGa3Y
+
+
+
 
 # ========== Category Section ===========
 
@@ -147,3 +153,9 @@ Content-Type: application/json
 
 ### delete payment method
 DELETE  http://localhost:8000/api/v1/payment-method/62ba3d37b1391c1b79aa0f57
+
+
+
+
+# "accessJWT": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0aEB5YWhvby5jb20iLCJpYXQiOjE2NTgwNTE5MzUsImV4cCI6MTY1ODA1MjgzNX0.8twolh3ggUYJxjEXK3D6jFFGY_MbcJceUdFWNqrq5bI",
+#   "refreshJWT": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0aEB5YWhvby5jb20iLCJpYXQiOjE2NTgwNTE5MzUsImV4cCI6MTY2MDY0MzkzNX0.-lqYMc6KnpZZzsuS4mERXTcpLEv2pUMgsRrkZUrg4Rg"

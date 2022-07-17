@@ -24,7 +24,11 @@ import {
   insertSession,
 } from "../models/session/SessionModel.js";
 import { createOtp } from "../helpers/randomGeneratorHelper.js";
-import { createJWTs, signAccessJwt } from "../helpers/jwtHelper.js";
+import {
+  createJWTs,
+  signAccessJwt,
+  verifyRefreshJwt,
+} from "../helpers/jwtHelper.js";
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -335,5 +339,38 @@ router.patch(
     }
   }
 );
+
+//this will return new accessJWT
+
+router.get("/accessjwt", async (req, res, next) => {
+  try {
+    const refreshJWT = req.headers.authorization;
+    console.log(refreshJWT);
+
+    const decoded = verifyRefreshJwt(refreshJWT);
+
+    if (decoded?.email) {
+      //check refJWT vlid and exist in db
+      const user = await getAdmin({ email: decoded.email, refreshJWT });
+
+      if (user?._id) {
+        //create new accessJWT and return it
+        const accessJWT = await signAccessJwt({ email: decoded.email });
+
+        res.json({
+          status: "success",
+          accessJWT,
+        });
+      }
+    }
+    res.status(401).json({
+      status: "error",
+      message: "log out user",
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
 
 export default router;

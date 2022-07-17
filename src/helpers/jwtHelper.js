@@ -16,7 +16,7 @@ export const signAccessJwt = async (payload) => {
     token: accessJWT,
     type: "jwt",
   };
-  insertSession(obj);
+  await insertSession(obj);
   return accessJWT;
 };
 
@@ -25,7 +25,7 @@ export const signRefreshJwt = async (payload) => {
     expiresIn: "30d",
   });
 
-  updateAdmin({ email: payload.email }, { refreshJWT });
+  await updateAdmin({ email: payload.email }, { refreshJWT });
   return refreshJWT;
 };
 
@@ -46,4 +46,8 @@ export const verifyAccessJwt = (token) => {
 
     return error.message;
   }
+};
+
+export const verifyRefreshJwt = (token) => {
+  return jwt.verify(token, process.env.JWT_REFRESH_SECRET);
 };
