@@ -32,11 +32,21 @@ import {
 import { adminAuth } from "../middlewares/auth-middlewares/authMiddleware.js";
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({
-    status: "success",
-    message: "GET, got hit to admin router",
-  });
+router.get("/", adminAuth, (req, res) => {
+  try {
+    let user = req.adminInfo;
+
+    user.password = undefined;
+    user.refreshJWT = undefined;
+
+    res.json({
+      status: "success",
+      message: "GET, got hit to admin router",
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
 });
 
 //new admin registration
@@ -83,6 +93,98 @@ router.post("/", adminAuth, newAdminValidation, async (req, res, next) => {
     next(error);
   }
 });
+
+//update admin registration
+router.put("/", adminAuth, updateAdminValidation, async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    console.log(req.body);
+
+    //query - get user by email
+    const user = await getAdmin({ email });
+
+    if (user?._id) {
+      const isMatched = verifyPassword(password, user.password);
+      if (isMatched) {
+        //update user
+        const { _id, password, ...rest } = req.body;
+        const updatedAdmin = await updateAdmin({ _id }, rest);
+
+        if (updatedAdmin?._id) {
+          //send email notification saying profile is updated
+          return res.json({
+            status: "success",
+            message: "Your profile has been updated successfully",
+            user: updatedAdmin,
+          });
+        }
+      }
+    }
+
+    res.json({
+      status: "error",
+      message: "Invalid request. Your profile didn't get updated.",
+    });
+  } catch (error) {
+    error.status = 500;
+    next(error);
+  }
+});
+
+//update password as logged in user
+
+router.patch(
+  "/update-password",
+  adminAuth,
+  updatePasswordValidation,
+  async (req, res, next) => {
+    try {
+      const { currentPassword, email, password } = req.body;
+      console.log(req.body);
+
+      //query get user by email
+      const user = await getAdmin({ email });
+
+      if (user?._id) {
+        //if user exist, compare password,
+        const isMatched = verifyPassword(currentPassword, user.password);
+        if (isMatched) {
+          const hashPassword = encryptPassword(password);
+
+          const updatedUser = await updateAdmin(
+            {
+              _id: user._id,
+            },
+            {
+              password: hashPassword,
+            }
+          );
+
+          if (updatedUser?._id) {
+            profileUpdateNotification({
+              fName: updatedUser.fName,
+              email: updatedUser.email,
+            });
+
+            return res.json({
+              status: "success",
+              message: "Your password has been updated successfully",
+            });
+          }
+        }
+      }
+
+      res.json({
+        status: "error",
+        message:
+          "Error! Unable to update the password, please try again later.",
+      });
+    } catch (error) {
+      error.status = 500;
+      next(error);
+    }
+  }
+);
 
 // email verification router
 router.post(
@@ -157,43 +259,6 @@ router.post("/login", loginValidation, async (req, res) => {
       message: "Invalid login credentials",
     });
     //check for authentication
-  } catch (error) {
-    error.status = 500;
-    next(error);
-  }
-});
-
-//update admin registration
-router.put("/", adminAuth, updateAdminValidation, async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-    console.log(req.body);
-
-    //query - get user by email
-    const user = await getAdmin({ email });
-
-    if (user?._id) {
-      const isMatched = verifyPassword(password, user.password);
-      if (isMatched) {
-        //update user
-        const { _id, password, ...rest } = req.body;
-        const updatedAdmin = await updateAdmin({ _id }, rest);
-
-        if (updatedAdmin?._id) {
-          //send email notification saying profile is updated
-          return res.json({
-            status: "success",
-            message: "Your profile has been updated successfully",
-            user: updatedAdmin,
-          });
-        }
-      }
-    }
-
-    res.json({
-      status: "error",
-      message: "Invalid request. Your profile didn't get updated.",
-    });
   } catch (error) {
     error.status = 500;
     next(error);
@@ -286,61 +351,6 @@ router.patch("/password", async (req, res, next) => {
     next(error);
   }
 });
-
-//update password as logged in user
-
-router.patch(
-  "/update-password",
-  adminAuth,
-  updatePasswordValidation,
-  async (req, res, next) => {
-    try {
-      const { currentPassword, email, password } = req.body;
-      console.log(req.body);
-
-      //query get user by email
-      const user = await getAdmin({ email });
-
-      if (user?._id) {
-        //if user exist, compare password,
-        const isMatched = verifyPassword(currentPassword, user.password);
-        if (isMatched) {
-          const hashPassword = encryptPassword(password);
-
-          const updatedUser = await updateAdmin(
-            {
-              _id: user._id,
-            },
-            {
-              password: hashPassword,
-            }
-          );
-
-          if (updatedUser?._id) {
-            profileUpdateNotification({
-              fName: updatedUser.fName,
-              email: updatedUser.email,
-            });
-
-            return res.json({
-              status: "success",
-              message: "Your password has been updated successfully",
-            });
-          }
-        }
-      }
-
-      res.json({
-        status: "error",
-        message:
-          "Error! Unable to update the password, please try again later.",
-      });
-    } catch (error) {
-      error.status = 500;
-      next(error);
-    }
-  }
-);
 
 //this will return new accessJWT
 
