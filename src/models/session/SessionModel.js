@@ -5,7 +5,7 @@ export const insertSession = (obj) => {
 };
 
 export const getSession = (filter) => {
-  return SessionSchema.fineOne(filter);
+  return SessionSchema.findOne(filter);
 };
 
 export const deleteSession = (filter) => {
