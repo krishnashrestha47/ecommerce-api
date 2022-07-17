@@ -36,8 +36,8 @@ import { adminAuth } from "./src/middlewares/auth-middlewares/authMiddleware.js"
 
 app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/category", adminAuth, categoryRouter);
-app.use("/api/v1/products", productRouter);
-app.use("/api/v1/payment-method", paymentMethodRouter);
+app.use("/api/v1/products", adminAuth, productRouter);
+app.use("/api/v1/payment-method", adminAuth, paymentMethodRouter);
 
 app.get("/", (req, res) => {
   res.json({

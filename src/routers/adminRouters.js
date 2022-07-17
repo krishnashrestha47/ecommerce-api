@@ -29,6 +29,7 @@ import {
   signAccessJwt,
   verifyRefreshJwt,
 } from "../helpers/jwtHelper.js";
+import { adminAuth } from "../middlewares/auth-middlewares/authMiddleware.js";
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -39,7 +40,7 @@ router.get("/", (req, res) => {
 });
 
 //new admin registration
-router.post("/", newAdminValidation, async (req, res, next) => {
+router.post("/", adminAuth, newAdminValidation, async (req, res, next) => {
   try {
     console.log(req.body);
 
@@ -163,7 +164,7 @@ router.post("/login", loginValidation, async (req, res) => {
 });
 
 //update admin registration
-router.put("/", updateAdminValidation, async (req, res, next) => {
+router.put("/", adminAuth, updateAdminValidation, async (req, res, next) => {
   try {
     const { email, password } = req.body;
     console.log(req.body);
@@ -286,10 +287,11 @@ router.patch("/password", async (req, res, next) => {
   }
 });
 
-//update password
+//update password as logged in user
 
 router.patch(
   "/update-password",
+  adminAuth,
   updatePasswordValidation,
   async (req, res, next) => {
     try {
