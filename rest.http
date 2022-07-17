@@ -60,13 +60,14 @@ PATCH http://localhost:8000/api/v1/admin
 # ========== Category Section ===========
 
 ### Post new category
-
 POST http://localhost:8000/api/v1/category
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0aEB5YWhvby5jb20iLCJpYXQiOjE2NTgwNDI2NDUsImV4cCI6MTY1ODA0MzU0NX0.ZCAuNN7v6In3-OzhsqjUz6L_nMJt9p_bIgKf29qNAaM
 
 {
-    "parentCat": "",
-    "catName": "bench"
+    "parentCatId": "62afdbd6fb52d025c6651789",
+    "catName": "folding",
+"status": "inactive"
 }
 
 ### get all active categories
