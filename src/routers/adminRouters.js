@@ -1,5 +1,5 @@
 import express from "express";
-import { encryptPassword, verifyPassword } from "../../helpers/bcryptHelper.js";
+import { encryptPassword, verifyPassword } from "../helpers/bcryptHelper.js";
 import {
   emailVerificationValidation,
   loginValidation,
@@ -17,13 +17,13 @@ import {
   otpNotification,
   profileUpdateNotification,
   sendMail,
-} from "../../helpers/emailHelper.js";
+} from "../helpers/emailHelper.js";
 import {
   deleteSession,
   getSession,
   insertSession,
 } from "../models/session/SessionModel.js";
-import { createOtp } from "../../helpers/randomGeneratorHelper.js";
+import { createOtp } from "../helpers/randomGeneratorHelper.js";
 const router = express.Router();
 
 router.get("/", (req, res) => {
