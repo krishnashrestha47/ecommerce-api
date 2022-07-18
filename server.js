@@ -40,7 +40,7 @@ app.use("/api/v1/admin", adminRouter);
 app.use("/api/v1/category", adminAuth, categoryRouter);
 app.use("/api/v1/products", adminAuth, productRouter);
 app.use("/api/v1/payment-method", adminAuth, paymentMethodRouter);
-app.use("/api/v1/customers", customerRouter);
+app.use("/api/v1/customers", adminAuth, customerRouter);
 
 app.get("/", (req, res) => {
   res.json({
