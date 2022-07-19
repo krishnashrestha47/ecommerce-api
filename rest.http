@@ -161,3 +161,9 @@ DELETE  http://localhost:8000/api/v1/payment-method/62ba3d37b1391c1b79aa0f57
 GET  http://localhost:8000/api/v1/customers/2
 
 
+# --- review API ---
+
+### get customers list
+GET  http://localhost:8000/api/v1/reviews
+
+
