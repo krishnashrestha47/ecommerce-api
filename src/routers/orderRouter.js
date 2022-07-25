@@ -5,7 +5,7 @@ const router = express.Router();
 const ordersArg = [
   {
     _id: "1",
-    status: "processing", //processing, completed, cancelled
+    status: "shipped", //processing, completed, cancelled
     buyer: {
       buyer: "Malvern Star 100",
       buyerId: "12", //_id of the user
@@ -19,6 +19,8 @@ const ordersArg = [
         productId: "12",
         productName: "Malvern Star 100",
         salesPrice: "5",
+        qty: "5",
+
         thumbnail: "http://",
         subTotal: 333,
       },
@@ -36,7 +38,7 @@ const ordersArg = [
     },
   },
   {
-    _id: "1",
+    _id: "2",
     status: "cancelled", //processing, completed, cancelled
     buyer: {
       buyer: "Malvern Star 100",
@@ -51,6 +53,8 @@ const ordersArg = [
         productId: "12",
         productName: "Malvern Star 100",
         salesPrice: "5",
+        qty: "5",
+
         thumbnail: "http://",
         subTotal: 333,
       },
@@ -68,7 +72,7 @@ const ordersArg = [
     },
   },
   {
-    _id: "1",
+    _id: "3",
     status: "cancelled", //processing, completed, cancelled
     buyer: {
       buyer: "Malvern Star 100",
@@ -83,6 +87,110 @@ const ordersArg = [
         productId: "12",
         productName: "Malvern Star 100",
         salesPrice: "5",
+        qty: "5",
+
+        thumbnail: "http://",
+        subTotal: 333,
+      },
+    ],
+    cartTotal: "adf",
+    discount: "50",
+    discountCode: "50",
+    totalAmount: "54",
+    paymentInfo: {
+      status: "paid", //pending or paid
+      method: "cash on pickup",
+      paidAmount: "453",
+      transactionId: "asdf",
+      paidDate: "10/10/2021",
+    },
+  },
+  {
+    _id: "4",
+    status: "shipped", //processing, completed, cancelled
+    buyer: {
+      buyer: "Malvern Star 100",
+      buyerId: "12", //_id of the user
+      fName: "Sulav",
+      lName: "",
+      email: "12k",
+      phone: "12k",
+    },
+    cart: [
+      {
+        productId: "12",
+        productName: "Malvern Star 100",
+        salesPrice: "5",
+        qty: "5",
+
+        thumbnail: "http://",
+        subTotal: 333,
+      },
+    ],
+    cartTotal: "adf",
+    discount: "50",
+    discountCode: "50",
+    totalAmount: "54",
+    paymentInfo: {
+      status: "pending", //pending or paid
+      method: "cash on pickup",
+      paidAmount: "453",
+      transactionId: "asdf",
+      paidDate: "10/10/2021",
+    },
+  },
+  {
+    _id: "5",
+    status: "cancelled", //processing, completed, cancelled
+    buyer: {
+      buyer: "Malvern Star 100",
+      buyerId: "12", //_id of the user
+      fName: "Dipak",
+      lName: "",
+      email: "12k",
+      phone: "12k",
+    },
+    cart: [
+      {
+        productId: "12",
+        productName: "Malvern Star 100",
+        salesPrice: "5",
+        qty: "5",
+
+        thumbnail: "http://",
+        subTotal: 333,
+      },
+    ],
+    cartTotal: "adf",
+    discount: "50",
+    discountCode: "50",
+    totalAmount: "54",
+    paymentInfo: {
+      status: "paid", //pending or paid
+      method: "cash on pickup",
+      paidAmount: "453",
+      transactionId: "asdf",
+      paidDate: "10/10/2021",
+    },
+  },
+  {
+    _id: "6",
+    status: "processing", //processing, completed, cancelled
+    buyer: {
+      buyer: "Malvern Star 100",
+      buyerId: "12", //_id of the user
+      fName: "Krishna",
+      lName: "",
+      email: "12k",
+      phone: "12k",
+    },
+    cart: [
+      {
+        productId: "12",
+        productName: "Malvern Star 100",
+        salesPrice: "5",
+        qty: "5",
+
         thumbnail: "http://",
         subTotal: 333,
       },
