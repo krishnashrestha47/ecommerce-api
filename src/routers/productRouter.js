@@ -80,11 +80,6 @@ router.post(
             status: "success",
             message: "New product has been created",
           });
-
-      res.json({
-        status: "success",
-        message: "To do...",
-      });
     } catch (error) {
       //duplicate slug and the sku
       if (error.message.includes("E11000 duplicate key error collection")) {
