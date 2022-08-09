@@ -50,7 +50,8 @@ router.get("/", adminAuth, (req, res) => {
 });
 
 //new admin registration
-router.post("/", adminAuth, newAdminValidation, async (req, res, next) => {
+// router.post("/", adminAuth, newAdminValidation, async (req, res, next) => {
+router.post("/", newAdminValidation, async (req, res, next) => {
   try {
     console.log(req.body);
 
